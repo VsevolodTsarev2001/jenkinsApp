@@ -1,22 +1,22 @@
 pipeline {
     agent any
     stages {
-        stage('Create Text File') {
+        stage('Checkout Code') {
             steps {
-                // Create a text file with a single line
-                sh 'echo "This is a sample text line." > sample.txt'
+                // Клонирование репозитория
+                git 'https://github.com/VsevolodTsarev2001/jenkinsApp'
             }
         }
-        stage('Display File Contents') {
+        stage('Install Dependencies') {
             steps {
-                // Display the contents of the file
-                sh 'cat sample.txt'
+                // Установка зависимостей Node.js
+                sh 'npm install'
             }
         }
-        stage('Show Name') {
+        stage('Run Application') {
             steps {
-                // Display your name
-                sh 'echo "Your Name: Vsevolod Tsarev"'
+                // Запуск приложения
+                sh 'npm start &'
             }
         }
     }
