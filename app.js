@@ -1,14 +1,11 @@
 const express = require('express');
 const app = express();
+const port = 3000;
 
-const PORT = 3000;
-
-// Home endpoint
 app.get('/', (req, res) => {
-    res.send('My favorite dessert is Tiramisu!');
+  res.send('Minu lemmikmagustoit on punane kook');
 });
 
-// Start the server
-app.listen(PORT, () => {
-    console.log(`Server is running on http://localhost:${PORT}`);
+app.listen(port, () => {
+  console.log(`Rakendus töötab aadressil http://localhost:${port}`);
 });
