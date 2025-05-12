@@ -1,22 +1,23 @@
 pipeline {
     agent any
+
     stages {
-        stage('Checkout Code') {
+        stage('Install dependencies') {
             steps {
-                // Клонирование репозитория
-                git 'https://github.com/VsevolodTsarev2001/jenkinsApp.git'
-            }
-        }
-        stage('Install Dependencies') {
-            steps {
-                // Установка зависимостей Node.js
                 sh 'npm install'
             }
         }
-        stage('Run Application') {
+
+        stage('Start Express app via PM2') {
             steps {
-                // Запуск приложения
-                sh 'npm start &'
+                sh '''
+                    if ! pm2 list | grep -q movie-app; then
+                      pm2 start app.js --name movie-app
+                    else
+                      pm2 restart movie-app
+                    fi
+                    pm2 save
+                '''
             }
         }
     }
